@@ -4,16 +4,30 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('subject_histories', function (Blueprint $table) {
-            $table->id();
+
+            $table->uuid('id')->primary();
+
+            $table->foreignUuid('student_id')
+                ->constrained('students')
+                ->cascadeOnDelete();
+
+            $table->foreignUuid('subject_id')
+                ->constrained('subjects')
+                ->cascadeOnDelete();
+
+            $table->foreignUuid('semester_id')
+                ->constrained('semesters')
+                ->cascadeOnDelete();
+
             $table->timestamps();
+
         });
     }
 

@@ -10,27 +10,30 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
 
             $table->uuid('id')->primary();
 
-            $table->string('name');
+            $table->uuidMorphs('tokenable');
 
-            $table->foreignUuid('teacher_id')
-                ->nullable()
-                ->constrained('teachers')
-                ->nullOnDelete();
+            $table->string('name');
+            $table->string('token', 64)->unique();
+
+            $table->text('abilities')->nullable();
+
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable()->index();
 
             $table->timestamps();
-
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('personal_access_tokens');
     }
 };

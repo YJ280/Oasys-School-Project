@@ -8,13 +8,15 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
+   public function up(): void
     {
         Schema::create('parents', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignUuid('user_id')
+                  ->constrained('users')
+                  ->cascadeOnDelete();
 
             $table->string('phone');
 
@@ -22,7 +24,6 @@ return new class extends Migration {
 
         });
     }
-
     /**
      * Reverse the migrations.
      */

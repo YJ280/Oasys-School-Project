@@ -12,12 +12,15 @@ return new class extends Migration {
     {
         Schema::create('students', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->string('name');
             $table->string('nisn')->unique();
 
-            $table->foreignId('class_id')->nullable()->constrained('classes');
+            $table->foreignUuid('class_id')
+                ->nullable()
+                ->constrained('classes')
+                ->nullOnDelete();
 
             $table->string('status')->default('active');
 
@@ -25,6 +28,7 @@ return new class extends Migration {
 
         });
     }
+
 
     /**
      * Reverse the migrations.

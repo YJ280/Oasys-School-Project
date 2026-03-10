@@ -12,11 +12,19 @@ return new class extends Migration {
     {
         Schema::create('schedules', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
-            $table->foreignId('class_id');
-            $table->foreignId('subject_id');
-            $table->foreignId('teacher_id');
+            $table->foreignUuid('class_id')
+                ->constrained('classes')
+                ->cascadeOnDelete();
+
+            $table->foreignUuid('subject_id')
+                ->constrained('subjects')
+                ->cascadeOnDelete();
+
+            $table->foreignUuid('teacher_id')
+                ->constrained('teachers')
+                ->cascadeOnDelete();
 
             $table->string('day');
 

@@ -12,9 +12,13 @@ return new class extends Migration {
     {
         Schema::create('semesters', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignId('academic_year_id')->constrained('academic_years');
+
+            $table->foreignUuid('academic_year_id')
+                ->constrained('academic_years')
+                ->cascadeOnDelete();
+
             $table->timestamps();
 
         });

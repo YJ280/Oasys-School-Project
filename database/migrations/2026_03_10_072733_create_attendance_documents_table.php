@@ -12,9 +12,11 @@ return new class extends Migration {
     {
         Schema::create('attendance_documents', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
-            $table->foreignId('attendance_id');
+            $table->foreignUuid('attendance_id')
+                ->constrained('attendance_sessions')
+                ->cascadeOnDelete();
 
             $table->string('file_path');
 

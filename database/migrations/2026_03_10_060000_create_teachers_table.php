@@ -12,9 +12,11 @@ return new class extends Migration {
     {
         Schema::create('teachers', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignUuid('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
 
             $table->string('nip')->nullable();
             $table->string('nuptk')->nullable();
@@ -25,7 +27,6 @@ return new class extends Migration {
 
         });
     }
-
     /**
      * Reverse the migrations.
      */

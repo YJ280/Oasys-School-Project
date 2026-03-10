@@ -12,16 +12,20 @@ return new class extends Migration {
     {
         Schema::create('classes', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('grade');
             $table->string('sub_class');
 
-            $table->foreignId('teacher_id')->nullable();
+            $table->foreignUuid('teacher_id')
+                ->nullable()
+                ->constrained('teachers')
+                ->nullOnDelete();
 
             $table->timestamps();
-
         });
     }
+
 
     /**
      * Reverse the migrations.

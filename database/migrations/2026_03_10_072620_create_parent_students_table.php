@@ -12,10 +12,15 @@ return new class extends Migration {
     {
         Schema::create('parent_students', function (Blueprint $table) {
 
-            $table->id();
+            $table->foreignUuid('parent_id')
+                ->constrained('parents')
+                ->cascadeOnDelete();
 
-            $table->foreignId('parent_id')->constrained('parents');
-            $table->foreignId('student_id')->constrained('students');
+            $table->foreignUuid('student_id')
+                ->constrained('students')
+                ->cascadeOnDelete();
+
+            $table->primary(['parent_id', 'student_id']);
 
             $table->timestamps();
 

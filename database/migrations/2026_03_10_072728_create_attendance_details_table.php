@@ -12,17 +12,22 @@ return new class extends Migration {
     {
         Schema::create('attendance_details', function (Blueprint $table) {
 
-            $table->id();
+            $table->uuid('id')->primary();
 
-            $table->foreignId('attendance_id');
-            $table->foreignId('student_id');
+            $table->foreignUuid('attendance_id')
+                ->constrained('attendance_sessions')
+                ->cascadeOnDelete();
+
+            $table->foreignUuid('student_id')
+                ->constrained('students')
+                ->cascadeOnDelete();
 
             $table->enum('status', ['present', 'absent', 'late', 'permission']);
 
             $table->timestamps();
-
         });
     }
+
 
     /**
      * Reverse the migrations.
