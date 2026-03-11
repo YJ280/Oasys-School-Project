@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\ClassController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\DashboardController;
 
-Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
@@ -41,12 +40,6 @@ Route::get('/parents', [ParentController::class, 'index']);
 Route::get('/parents/{id}', [ParentController::class, 'show']);
 Route::put('/parents/{id}', [ParentController::class, 'update']);
 Route::get('/parents/{id}/children', [ParentController::class, 'children']);
-
-Route::get('/classes', [ClassController::class, 'index']);
-Route::post('/classes', [ClassController::class, 'store']);
-Route::put('/classes/{id}', [ClassController::class, 'update']);
-Route::delete('/classes/{id}', [ClassController::class, 'destroy']);
-Route::get('/classes/{id}/students', [ClassController::class, 'students']);
 
 Route::get('/classes', [ClassController::class, 'index']);
 Route::post('/classes', [ClassController::class, 'store']);
